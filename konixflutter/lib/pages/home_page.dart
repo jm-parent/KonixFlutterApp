@@ -1,8 +1,9 @@
 
 import 'package:flutter/material.dart';
-import 'package:konixflutter/fragments/first_fragment.dart';
-import 'package:konixflutter/fragments/second_fragment.dart';
-import 'package:konixflutter/fragments/third_fragment.dart';
+import 'package:konixflutter/fragments/NewsPage.dart';
+import 'package:konixflutter/fragments/TeamsPage.dart';
+import 'package:konixflutter/fragments/RecruitementPage.dart';
+import 'package:konixflutter/fragments/ContactPage.dart';
 
 class DrawerItem {
   String title;
@@ -12,9 +13,10 @@ class DrawerItem {
 
 class HomePage extends StatefulWidget {
   final drawerItems = [
-    new DrawerItem("Fragment 1", Icons.rss_feed),
-    new DrawerItem("Fragment 2", Icons.local_pizza),
-    new DrawerItem("Fragment 3", Icons.info)
+    new DrawerItem("News", Icons.rss_feed),
+    new DrawerItem("Nos Equipes", Icons.local_pizza),
+    new DrawerItem("Recrutement", Icons.info),
+    new DrawerItem("Contact", Icons.local_pizza),
   ];
 
   @override
@@ -29,12 +31,13 @@ class HomePageState extends State<HomePage> {
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-          return new FirstFragment();
+          return new NewsWidget();
       case 1:
-        return new SecondFragment();
+        return new TeamsWidget();
       case 2:
-        return new ThirdFragment();
-
+        return new RecruitementWidget();
+      case 3:
+        return new ContactWidget();
       default:
         return new Text("Error");
     }
@@ -62,8 +65,6 @@ class HomePageState extends State<HomePage> {
 
     return new Scaffold(
       appBar: new AppBar(
-        // here we display the title corresponding to the fragment
-        // you can instead choose to have a static title
         title: new Text(widget.drawerItems[_selectedDrawerIndex].title),
       ),
       drawer: new Drawer(
