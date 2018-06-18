@@ -4,6 +4,7 @@ import 'package:konixflutter/fragments/NewsPage.dart';
 import 'package:konixflutter/fragments/TeamsPage.dart';
 import 'package:konixflutter/fragments/RecruitementPage.dart';
 import 'package:konixflutter/fragments/ContactPage.dart';
+import 'package:konixflutter/fragments/PressPage.dart';
 
 class DrawerItem {
   String title;
@@ -14,9 +15,10 @@ class DrawerItem {
 class HomePage extends StatefulWidget {
   final drawerItems = [
     new DrawerItem("News", Icons.rss_feed),
-    new DrawerItem("Nos Equipes", Icons.local_pizza),
+    new DrawerItem("Nos Equipes", Icons.face),
     new DrawerItem("Recrutement", Icons.info),
-    new DrawerItem("Contact", Icons.local_pizza),
+    new DrawerItem("Press", Icons.developer_board),
+    new DrawerItem("Contact", Icons.phone),
   ];
 
   @override
@@ -37,6 +39,8 @@ class HomePageState extends State<HomePage> {
       case 2:
         return new RecruitementWidget();
       case 3:
+        return new PressWidget();
+      case 4:
         return new ContactWidget();
       default:
         return new Text("Error");
