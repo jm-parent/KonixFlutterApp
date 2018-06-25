@@ -1,4 +1,4 @@
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:konixflutter/fragments/NewsPage.dart';
 import 'package:konixflutter/fragments/TeamsPage.dart';
@@ -46,6 +46,25 @@ class HomePageState extends State<HomePage> {
         return new Text("Error");
     }
   }
+  Future<bool> _onWillPop() {
+    return showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('Are you sure?'),
+        content: new Text('Do you want to exit an App'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('No'),
+          ),
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: new Text('Yes'),
+          ),
+        ],
+      ),
+    ) ?? false;
+  }
 
   _onSelectItem(int index) {
     setState(() => _selectedDrawerIndex = index);
@@ -67,7 +86,9 @@ class HomePageState extends State<HomePage> {
       );
     }
 
-    return new Scaffold(
+    return new WillPopScope(
+        onWillPop: _onWillPop,
+        child:  new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.drawerItems[_selectedDrawerIndex].title),
       ),
@@ -81,6 +102,6 @@ class HomePageState extends State<HomePage> {
         ),
       ),
       body: _getDrawerItemWidget(_selectedDrawerIndex),
-    );
+    ));
   }
 }
