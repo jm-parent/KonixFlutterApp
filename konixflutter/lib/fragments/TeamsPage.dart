@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:konixflutter/Transformer/AccordionWidget.dart';
+import 'package:konixflutter/Transformer/AccordionItem.dart';
+import 'package:konixflutter/Datas/data.dart';
 
 class TeamsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new CustomScrollView(slivers: <Widget>[
-      const SliverAppBar(
-        title: const Text('Sliver App Bar'),
+    return Scaffold(
+      body: Center(
+        child: SizedBox.fromSize(
+          size: const Size.fromHeight(500.0),
+          child: AccordionWidget(
+            pageViewBuilder: (context, visibilityResolver) {
+              return PageView.builder(
+                controller: PageController(viewportFraction: 0.85),
+                itemCount: sampleItems.length,
+                itemBuilder: (context, index) {
+                  final item = sampleItems[index];
+                  final pageVisibility =
+                  visibilityResolver.resolvePageVisibility(index);
+
+                  return AccordionItem(
+                    item: item,
+                    pageVisibility: pageVisibility,
+                  );
+                },
+              );
+            },
+          ),
+        ),
       ),
-      new SliverList(
-          delegate: new SliverChildListDelegate(buildTextViews(50)))
-    ]);
-  }
-  List buildTextViews(int count) {
-    List<Widget> strings = List();
-    for (int i = 0; i < count; i++) {
-      strings.add(new Padding(padding: new EdgeInsets.all(16.0),
-          child: new Text("Item number " + i.toString(),
-              style: new TextStyle(fontSize: 20.0))));
-    }
-    return strings;
+    );
+
   }
 }
